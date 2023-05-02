@@ -51,6 +51,8 @@ ORDER BY; LIMIT; WHERE ___ LIKE '%char%';
 * FOREIGN KEY: another Relation's PRIMARY KEY which is used to reference the other Relation/Table's Tuple/Row
 * Logical Key: used by the client, to searh for data, to read and analyze
 * Hash and Trees Logic (as a way to reach data faster)
+  - Hash: best for exact key matches
+  - BTrees: best for prefix lookups or sorting
 
 use of a convention
 
@@ -58,6 +60,13 @@ use of a convention
 * Avoid vertical repetition of Data (especially if it's a String)
 * Create logical Relation between Tables
 * Correct understanding of Key Types and appropriate use
+
+* Create Database and Tables (follow logical order of precedence to create tables) -> populate them // relate them through foreign keys
+-> bring them together
+
+JOIN ___ ON rules :: link tables
+
+Bringing tables together through relations: the SELECT output is temporary, ephemeral. It doesn't use space in the database, and doesn't waste time or space!
 
 
 
