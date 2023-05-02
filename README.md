@@ -68,9 +68,10 @@ JOIN ___ ON rules :: link tables
 
 Bringing tables together through relations: the SELECT output is temporary, ephemeral. It doesn't use space in the database, and doesn't waste time or space!
 
+## Fourth Part
 
-
-
+* One-to-Many vs Many-to-Many relations
+- Many-to-Many: use of a connector table // relationship table // junction table: these tables usually do not have a primary key! (Meta-primary key: combinantion of the foreign keys) 
 
 
 
