@@ -1,0 +1,149 @@
+/* Songs Database
+
+Conceptual Schema of Relations
+
+Tracks -> Albums -> Artists // Tracks -> Genres
+
+appropriate use of primary and foreign keys 
+*/
+
+-- CREATION OF DATABASE AND RELATIONS
+
+CREATE DATABASE Music DEFAULT CHARACTER SET utf8;
+
+USE Music;
+
+CREATE TABLE Artist (
+  artist_id INTEGER NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255),
+  
+  PRIMARY KEY (artist_id)
+) ENGINE = InnoDB;
+
+CREATE TABLE Album (
+  album_id INTEGER NOT NULL AUTO_INCREMENT,
+  title VARCHAR(255),
+  artist_id INTEGER,
+  
+  PRIMARY KEY (album_id),
+  INDEX USING BTREE (title),
+  
+  CONSTRAINT FOREIGN KEY (artist_id) REFERENCES Artist (artist_id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB;
+
+CREATE TABLE Genre (
+  genre_id INTEGER NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255),
+  
+  PRIMARY KEY (genre_id)
+ ) ENGINE = InnoDB;
+ 
+ CREATE TABLE Track (
+  track_id INTEGER NOT NULL AUTO_INCREMENT,
+  song VARCHAR(255),
+  len INTEGER,
+  rating INTEGER,
+  count INTEGER,
+  album_id INTEGER,
+  genre_id INTEGER,
+  
+  PRIMARY KEY (track_id),
+  INDEX USING BTREE (song),
+  
+  CONSTRAINT FOREIGN KEY (album_id) REFERENCES Album (album_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT FOREIGN KEY (genre_id) REFERENCES Genre (genre_id) ON DELETE CASCADE ON UPDATE CASCADE
+  ) ENGINE = InnoDB;
+  
+INSERT INTO Artist (name) VALUES ('AC/DC');
+INSERT INTO Artist (name) VALUES ('Led Zeppelin');
+
+INSERT INTO Genre (name) VALUES ('Metal');
+INSERT INTO Genre (name) VALUES ('Rock');
+
+INSERT INTO Album (title, artist_id) VALUES ('Who Made Who', 1);
+INSERT INTO Album (title, artist_id) VALUES ('IV', 2);
+
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('About to Rock', 313, 5, 0, 1, 1);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Who Made Who', 207, 5, 0, 1, 1);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Black Dog', 297, 5, 0, 2, 2);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Stairway to Heaven', 482, 5, 0, 2, 2);
+
+-- other artists
+INSERT INTO Artist (name) VALUES ('Pink Floyd');
+INSERT INTO Artist (name) VALUES ('Queen');
+INSERT INTO Artist (name) VALUES ('Beatles');
+INSERT INTO Artist (name) VALUES ('Black Sabbath');
+INSERT INTO Artist (name) VALUES ('Pedro Salomão');
+INSERT INTO Artist (name) VALUES ('Hermanos Gutierrez');
+INSERT INTO Artist (name) VALUES ('Lousberg');
+INSERT INTO Artist (name) VALUES ('Mt. Joy');
+INSERT INTO Artist (name) VALUES ('Jeb Bush Orchestra');
+INSERT INTO Artist (name) VALUES ('Marvin Gaye');
+INSERT INTO Artist (name) VALUES ('LMFAO');
+INSERT INTO Artist (name) VALUES ('Ludovico Einaudi');
+
+-- albums
+INSERT INTO Album (title, artist_id) VALUES ('Cafune', 7);
+INSERT INTO Album (title, artist_id) VALUES ('Leoa', 7);
+INSERT INTO Album (title, artist_id) VALUES ('8 Anos', 8);
+INSERT INTO Album (title, artist_id) VALUES ('Hijos del Sol', 8);
+INSERT INTO Album (title, artist_id) VALUES ('Wintergemalde', 9);
+INSERT INTO Album (title, artist_id) VALUES ('Mt. Joy', 10);
+INSERT INTO Album (title, artist_id) VALUES ('Rearrange Us', 10);
+INSERT INTO Album (title, artist_id) VALUES ('3 for 1', 11);
+INSERT INTO Album (title, artist_id) VALUES ('Lets Get It On', 12);
+INSERT INTO Album (title, artist_id) VALUES ('Midnight Love', 12);
+INSERT INTO Album (title, artist_id) VALUES ('United', 12);
+INSERT INTO Album (title, artist_id) VALUES ('Sorry for Party Rocking', 13);
+INSERT INTO Album (title, artist_id) VALUES ('In a Time Lapse', 14);
+
+-- genres
+INSERT INTO Genre (name) VALUES ('MPB');
+INSERT INTO Genre (name) VALUES ('Instrumental Latin Western');
+INSERT INTO Genre (name) VALUES ('Dark Ambient');
+INSERT INTO Genre (name) VALUES ('Indie');
+INSERT INTO Genre (name) VALUES ('Jazz-Funk');
+INSERT INTO Genre (name) VALUES ('R&B/Soul');
+INSERT INTO Genre (name) VALUES ('Dance-pop');
+INSERT INTO Genre (name) VALUES ('Classical');
+
+-- tracks
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Cafune', 122, 5, 0, 3, 3);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Leoa', 211, 5, 0, 4, 6);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('El Jardin', 200, 5, 0, 5, 4);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('El Mar', 175, 5, 0, 5, 4);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Venganza', 174, 5, 0, 5, 4);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Mesa Redonda', 175, 5, 0, 6, 4);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Western Bronco', 194, 5, 0, 6, 4);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Gemalde I', 774, 5, 0, 7, 5);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Gemalde II', 1087, 5, 0, 7, 5);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Astrovan', 186, 5, 0, 8, 6);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Dirty Love', 164, 5, 0, 8, 6);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Acrobats', 219, 5, 0, 9, 6);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Arnold Palmer', 219, 5, 0, 10, 7);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Bacon Lettuce', 218, 5, 0, 10, 7);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Lets Get It On', 290, 5, 0, 11, 8);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Sexual Healing', 238, 5, 0, 12, 8);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Aint no Mountain Enough', 151, 5, 0, 13, 8);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Your Precious Love', 187, 5, 0, 13, 8);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Sexy and I know It', 219, 5, 0, 14, 9);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Experience', 315, 5, 5, 15, 10);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Time Lapse', 331, 5, 0, 15, 10);
+INSERT INTO Track (song, len, rating, count, album_id, genre_id) VALUES ('Discovey At Night', 265, 5, 0, 15, 10);
+
+
+
+-- BRINGIN TOGETHER
+
+\*SELECT Album.artist_id, Artist.artist_id FROM Album JOIN Artist ON Album.artist_id = Artist_artist_id;
+
+SELECT Track.album_id, Album.album_id FROM Track JOIN Album ON Track.album_id = Album.album_id;
+SELECT Track.genre_id, Genre.genre_id FROM Track JOIN Genre ON Track.genre_id = Genre.genre_id;
+*\
+
+SELECT Track.song, Album.title, Genre.name, Artist.name FROM Track JOIN Genre JOIN Album JOIN Artist ON Track.genre_id = Genre.genre_id AND Track.album_id = Album.album_id AND Album.artist_id = Artist.artist_id ORDER BY Album.title;
+
+SELECT DISTINCT Artist.name, Genre.genre FROM Track JOIN Genre JOIN Album JOIN Artist ON Track.album_id = Album.album_id AND Track.genre_id = Genre.genre_id AND Album.artist_id = Artist.artist_id WHERE Artist.name = 'Pedro Salomao';
+
+-- OPTIONAL: Come up with a query using GROUP BY to show the number of tracks an Artist has in each Genre.
+SELECT Artist.name, Genre.genre, COUNT(Track.track_id) FROM Track JOIN Genre JOIN Album JOIN Artist ON Track.album_id = Album.album_id AND Track.genre_id = Genre.genre_id AND Album.artist_id = Artist.artist_id GROUP BY Artist.name, Genre.genre;
